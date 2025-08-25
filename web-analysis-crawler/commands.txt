@@ -1,0 +1,29 @@
+npm run crawl -- -u "https://example.com" -o ./data/ -v
+
+npm run crawl -- -u "http://localtest.me:5500/test_pages/webpage_with_requests_v2.html" -o ./temp_data/ -v -f
+
+npm run crawl -- -u "shopify.com" -o ./data/ -v -f -m --autoconsent-action optIn
+npm run crawl -- -u "shopify.com" -o ./temp_data/ -v -f -m -d requests,screenshots
+npm run crawl -- -u "shopify.com" -o ./temp_data/ -v -f -m -l ./temp_data/ --reporters cli,file
+
+npm run crawl -- -u "https://bot.sannysoft.com" -o ./temp_data/ -v -f -m
+npm run crawl -- -u "store.steampowered.com" -o ./temp_data/ -f -l ./temp_data/ --reporters cli,file
+
+npm run crawl -- -o ./temp_data/ -v -f -m -u
+
+npm run crawl -- -i ./input/list_test_100.txt -o ./data/ -f -l ./temp_data/ --reporters cli,file
+npm run crawl -- -i ./input/list_1k.txt -o ./data/ -v -f -m
+
+npm run crawl -- -i ./input/list_100k.txt -o ./data/ -f -m -l ./temp_data/ --reporters cli,file
+npm run crawl -- -i ./input/list_100k.txt -o ./data/ -f -l ./temp_data/ --reporters cli,file
+
+npm run crawl -- -i ./input/detected_urls_frankfurt.txt -o ./data/ -f -m -l ./temp_data/ --reporters cli,file
+npm run crawl -- -i ./input/detected_urls_new_york.txt -o ./data/ -f -m -l ./temp_data/ --reporters cli,file
+
+npm run crawl -- -u "shopify.com" -o ./temp_data/ -f -m -l ./temp_data/ --reporters cli,file
+npm run crawl -- -u "https://httpbin.org/headers" -o ./temp_data/ -f -m -l ./temp_data/ --reporters cli,file
+
+
+
+
+http://localtest.me:5500/test_pages/webpage_with_requests_v2.html
