@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC IPv6</title>
+</head>
+<body>
+    <h3>WebRTC IPv6</h3>
+    <p><strong>Disclaimer:</strong> This method likely won't work if there is fewer than two addresses printed.</p>
+    <label for="port">Port to use:</label>
+    <input type="number" id="port" min="1" max="65535" value="10000" />
+    <br><br>
+    <button onclick="gatherNewCandidates()">Gather new candidate addresses</button>
+    <br><br>
+    <label for="index">Index of Address to use (zero indexed):</label>
+    <input type="number" id="index" value="1" />
+    <p>Example data: testdata123</p>
+    <label for="data">Data to send as ufrag:</label>
+    <input type="text" id="data" value="testdata123" />
+    <br><br>
+    <button onclick="sendWithAddress()">Send with STUN (Indexed Address)</button>
+    <p>Candidate addresses: <span id="addresses"></span></p>
+
+    <script>
+        gatherNewCandidates()
+        
+        async function gatherNewCandidates() {
+            p = new RTCPeerConnection()
+            dc = p.createDataChannel('ipv6')
+            const addresses = []
+
+            // Save unique addresses on generation
+            p.onicecandidate = ev => {
+                if (ev.candidate && ev.candidate.address) {
+                    if (!addresses.includes(ev.candidate.address)) {
+                        addresses.push(ev.candidate.address)
+                    }
+                }
+            }
+
+            // Bind our local side to gather candidates
+            o = await p.createOffer()
+            await p.setLocalDescription(o)
+            while (p.iceGatheringState !== 'complete')
+                await new Promise(resolve => p.onicegatheringstatechange = resolve)
+
+            // Print out candidates
+            document.getElementById('addresses').innerText = "\n"
+            for (const address of addresses) {
+                console.log(address)
+                document.getElementById('addresses').innerText += address
+                document.getElementById('addresses').innerText += "\n"
+            }
+        }
+
+        async function sendWithAddress() {
+            ufrag = document.getElementById('data').value
+            port = document.getElementById('port').value
+            address_index = document.getElementById('index').value
+
+            p = new RTCPeerConnection()
+            dc = p.createDataChannel('ipv6')
+            const addresses = []
+
+            // Save unique addresses on generation
+            p.onicecandidate = ev => {
+                if (ev.candidate && ev.candidate.address) {
+                    if (!addresses.includes(ev.candidate.address)) {
+                        addresses.push(ev.candidate.address)
+                    }
+                }
+            }
+
+            // Bind our local side to gather candidates
+            o = await p.createOffer()
+            await p.setLocalDescription(o)
+            while (p.iceGatheringState !== 'complete')
+                await new Promise(resolve => p.onicegatheringstatechange = resolve)
+
+            // Print out candidates
+            document.getElementById('addresses').innerText = "\n"
+            for (const address of addresses) {
+                console.log(address)
+                document.getElementById('addresses').innerText += address
+                document.getElementById('addresses').innerText += "\n"
+            }
+
+            // Select address to use
+            localAddr = addresses[address_index]
+
+            // Use a temporary peer connection to get a plausible-looking answer
+            p2 = new RTCPeerConnection()
+            await p2.setRemoteDescription(o)
+            a = await p2.createAnswer(o)
+
+            // Change answer to insert the data, and use the specified address and port
+            await p.setRemoteDescription({ type: 'answer', sdp:
+                a.sdp.replace(/ice-ufrag:.+/g, 'ice-ufrag:' + ufrag)
+                + `a=candidate:4234997325 1 udp 2043278322 ${localAddr} ${port} typ host\r\n` })
+        }
+    </script>
+</body>
+</html>

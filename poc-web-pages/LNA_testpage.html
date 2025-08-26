@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Request Test</title>
+</head>
+<body>
+    <h2>Send Random 4-Digit Number</h2>
+    <button onclick="generateNumber()">Generate Random Number</button>
+    <p>Random Number: <span id="random-number">Not Generated</span></p>
+
+    <!-- HTTP -->
+    <h3>HTTP</h3>
+    <p>http://{url}/send</p>
+    <p>Example URL: localhost:5000 , 127.0.0.1:5000 , [::1]:5000</p>
+    <label for="http_url">URL:</label>
+    <input type="text" id="http_url" value="localhost:5000">
+    <br><br>
+    <label for="http_method">Choose HTTP method:</label>
+    <select id="http_method" name="http_method">
+        <option value="POST">POST</option>
+        <option value="GET">GET</option>
+    </select>
+    <br><br>
+    <button onclick="sendHttpRequest()">Send via HTTP</button>
+    <p>Response: <span id="http_response">No Response</span></p>
+
+    <!-- HTTPS -->
+    <h3>HTTPS</h3>
+    <p>https://{url}/send</p>
+    <p>Example URL: myapp.local:5001</p>
+    <label for="https_url">URL:</label>
+    <input type="text" id="https_url" value="myapp.local:5001">
+    <br><br>
+    <label for="https_method">Choose HTTP method:</label>
+    <select id="https_method" name="https_method">
+        <option value="POST">POST</option>
+        <option value="GET">GET</option>
+    </select>
+    <br><br>
+    <button onclick="sendHttpsRequest()">Send via HTTPS</button>
+    <p>Response: <span id="https_response">No Response</span></p>
+
+    <!-- WebSocket -->
+    <h3>WebSocket</h3>
+    <p>ws://{url}/ws</p>
+    <p>Example URL: localhost:5000</p>
+    <label for="ws_url">URL:</label>
+    <input type="text" id="ws_url" value="localhost:5000">
+    <br><br>
+    <button onclick="sendWebSocket()">Send via WebSocket</button>
+    <p>Response: <span id="ws_response">No Response</span></p>
+
+    <!-- WebRTC Facebook STUN -->
+    <h3>Adapted Meta STUN WebRTC</h3>
+    <p>Example IPv4: 127.0.0.1</p>
+    <label for="meta_ip">IPv4:</label>
+    <input type="text" id="meta_ip" pattern="^(\d{1,3}\.){3}\d{1,3}$" value="127.0.0.1" />
+    <br><br>
+    <label for="meta_port">Port:</label>
+    <input type="number" id="meta_port" min="1" max="65535" value="10000" />
+    <br><br>
+    <button onclick="sendMetaSTUN()">Send with STUN</button>
+    <br><br>
+    <button onclick="sendAdaptedMetaSTUN()">Send with Adapted STUN</button>
+
+    <!-- WebRTC double channel -->
+    <h3>WebRTC Double Channel</h3>
+    <label for="double_port">Port:</label>
+    <input type="number" id="double_port" min="1" max="65535" value="10000" />
+    <br><br>
+    <button onclick="sendDouble()">Send with STUN</button>
+    <br><br>
+    <label for="double_index">Index of Address (zero indexed):</label>
+    <input type="number" id="double_index" value="1" />
+    <br><br>
+    <button onclick="printUUIDs()">Print candidate addresses</button>
+    <br><br>
+    <button onclick="sendDoubleIndexed()">Send with STUN (Indexed Address)</button>
+    <p>Candidate addresses: <span id="double_addresses"></span></p>
+    
+    
+
+    <!-- WebRTC TURN -->
+    <h3>WebRTC TURN</h3>
+    <label for="turn_port">Port:</label>
+    <input type="number" id="turn_port" min="1" max="65535" value="10001" />
+    <p>Example data: testdata123</p>
+    <label for="turn_data">Data:</label>
+    <input type="text" id="turn_data" value="testdata123" />
+    <br><br>
+    <button onclick="sendTURN()">Send with TURN</button>
+
+    <!-- mDNS lookup -->
+    <h3>mDNS lookup</h3>
+    <p>Example data: testdata123</p>
+    <label for="mDNS_data">Data:</label>
+    <input type="text" id="mDNS_data" value="testdata123" />
+    <button onclick="sendLookup()">Send fetch request</button>
+
+    <!-- WebTransport -->
+    <h3>WebTransport</h3>
+    <p>Example data: testdata123</p>
+    <label for="transport_data">Data:</label>
+    <input type="text" id="transport_data" value="testdata123" />
+    <br><br>
+    <p>https://{url}/</p>
+    <p>Example URL: localhost:5002</p>
+    <label for="transport_url">URL:</label>
+    <input type="text" id="transport_url" value="localhost:5002">
+    <br><br>
+    <button onclick="sendTransport()">Send request</button>
+    <p>Response: <span id="transport_response">No Response</span></p>
+
+    <!-- Image embedding -->
+    <h3>Images</h3>
+    <p>Example URL: http://localhost:5000/testdata123.jpg</p>
+    <label for="image_url">URL:</label>
+    <input type="text" id="image_url" value="http://localhost:5000/testdata123.jpg" />
+    <br><br>
+    <button onclick="setImageSrc()">Set Image source</button>
+    <br><br>
+    <img id = "image" src="http://localhost:5000/testdata123.jpg">
+
+    <!-- iframe embedding -->
+    <h3>iFrame</h3>
+    <p>Example URL: http://localhost:5000/testdata123</p>
+    <label for="iframe_url">URL:</label>
+    <input type="text" id="iframe_url" value="http://localhost:5000/testdata123" />
+    <br><br>
+    <button onclick="setIframeSrc()">Set iFrame source</button>
+    <br><br>
+    <iframe id="iframe" src="http://localhost:5000/testdata123"> </iframe>
+
+    <script>
+        let randomNumber = null;
+        let ws = null;
+
+        const allTests = ["sendHttpRequest",
+                          "sendHttpsRequest",
+                          "sendWebSocket",
+                          "sendMetaSTUN",
+                          "sendAdaptedMetaSTUN",
+                          "sendDouble",
+                          "sendDoubleIndexed",
+                          "sendTURN",
+                          "sendLookup",
+                          "sendTransport",
+                        ]
+
+        function generateNumber() {
+            randomNumber = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('random-number').innerText = randomNumber;
+        }
+
+
+
+        // HTTP
+        function sendHttpRequest() {
+            const url = document.getElementById('http_url').value;
+            if (!url) {
+                alert('Enter URL first!');
+                return;
+            }
+            const method = document.getElementById('http_method').value;
+            if (method == "GET") {
+                // Send GET request
+                const params = new URLSearchParams({
+                    number: "sendHttpRequest" + randomNumber
+                });
+                fetch(`http://${url}/send?${params.toString()}`, {
+                    mode: 'cors'
+                })
+                .then(response => response.text())
+                .then(data => document.getElementById('http_response').innerText = data)
+                .catch(error => console.error('HTTP Error:', error));
+            } else if (method == "POST") {
+                fetch(`http://${url}/send`, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ number: "sendHttpRequest" + randomNumber })
+                })
+                .then(response => response.text())
+                .then(data => document.getElementById('http_response').innerText = data)
+                .catch(error => console.error('HTTP Error:', error));
+            }
+        }
+
+
+
+        // HTTPS
+        function sendHttpsRequest() {
+            const url = document.getElementById('https_url').value;
+            if (!url) {
+                alert('Enter URL first!');
+                return;
+            }
+            const method = document.getElementById('https_method').value;
+            if (method == "GET") {
+                // Send GET request
+                const params = new URLSearchParams({
+                    number: "sendHttpsRequest" + randomNumber
+                });
+                fetch(`https://${url}/send?${params.toString()}`, {
+                    mode: 'cors'
+                })
+                .then(response => response.text())
+                .then(data => document.getElementById('https_response').innerText = data)
+                .catch(error => console.error('HTTP Error:', error));
+            } else if (method == "POST") {
+                // Send POST request
+                fetch(`https://${url}/send`, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ number: "sendHttpsRequest" + randomNumber })
+                })
+                .then(response => response.text())
+                .then(data => document.getElementById('https_response').innerText = data)
+                .catch(error => console.error('HTTPS Error:', error));
+            }
+        }
+
+
+
+        // WebSocket
+        function sendWebSocket() {
+            const url = document.getElementById('ws_url').value;
+            if (!url) {
+                alert('Enter URL first!');
+                return;
+            }
+            
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                ws = new WebSocket(`ws://${url}/ws`);
+                ws.onopen = () => {
+                    console.log('WebSocket connected');
+                    ws.send(JSON.stringify({ number: "sendWebSocket" + randomNumber }));
+                };
+                ws.onerror = (error) => console.error('WebSocket Error:', error);
+                ws.onmessage = (event) => document.getElementById('ws_response').innerText = event.data;
+            } else {
+                ws.send(JSON.stringify({ number: "sendWebSocket" + randomNumber }));
+            }
+        }
+
+
+
+        // WebRTC Facebook STUN
+        async function sendMetaSTUN() {
+            const ip = document.getElementById('meta_ip').value;
+            const port = document.getElementById('meta_port').value;
+            a = "v=0\no=- 521628857 1575883112 IN IP4 0.0.0.0\ns=-\nt=0 0\na=fingerprint:sha-256 E5:74:B0:70:3E:5A:10:AF:67:E9:A7:F5:E5:13:87:F5:45:5D:92:78:46:E8:46:AE:6A:D7:70:70:BE:64:0F:BC\na=group:BUNDLE 0\na=ice-lite\nm=application 9 DTLS/SCTP 5000\nc=IN IP4 0.0.0.0\na=setup:active\na=mid:0\na=sendrecv\na=sctpmap:5000 webrtc-datachannel 1024\na=ice-ufrag:sendMetaSTUN" + randomNumber+ "\na=ice-pwd:xGjQkAvKIVkBeVTGWcvCQtnVAeapczwa\na=candidate:foundation 1 udp 2130706431 " + ip + " " + port + " typ host generation 0\na=end-of-candidates\n"
+
+            p = new RTCPeerConnection()
+            p.createDataChannel('meta')
+
+            o = await p.createOffer()
+            o.sdp = o.sdp.replace(/^a=ice-ufrag.*$/m, "a=ice-ufrag:aid+sendMetaSTUN" + randomNumber),
+            o.sdp = o.sdp.replace(/^a=ice-pwd.*$/m, "a=ice-pwd:OEKutPgoHVk/99FfqPOf444w")
+            console.log(o)
+            await p.setLocalDescription(o)
+
+            await p.setRemoteDescription({ type: 'answer', sdp: a })
+        }
+
+
+
+        // WebRTC Facebook Adapted STUN
+        async function sendAdaptedMetaSTUN() {
+            const ip = document.getElementById('meta_ip').value;
+            const port = document.getElementById('meta_port').value;
+            a = "v=0\no=- 521628857 1575883112 IN IP4 0.0.0.0\ns=-\nt=0 0\na=fingerprint:sha-256 E5:74:B0:70:3E:5A:10:AF:67:E9:A7:F5:E5:13:87:F5:45:5D:92:78:46:E8:46:AE:6A:D7:70:70:BE:64:0F:BC\na=group:BUNDLE 0\na=ice-lite\nm=application 9 DTLS/SCTP 5000\nc=IN IP4 0.0.0.0\na=setup:active\na=mid:0\na=sendrecv\na=sctpmap:5000 webrtc-datachannel 1024\na=ice-ufrag:sendAdaptedMetaSTUN" + randomNumber+ "\na=ice-pwd:xGjQkAvKIVkBeVTGWcvCQtnVAeapczwa\na=candidate:foundation 1 udp 2130706431 " + ip + " " + port + " typ host generation 0\na=end-of-candidates\n"
+
+            p = new RTCPeerConnection()
+            p.createDataChannel('meta')
+
+            o = await p.createOffer()
+            await p.setLocalDescription(o)
+
+            await p.setRemoteDescription({ type: 'answer', sdp: a })
+        }
+
+
+
+        // WebRTC double channel
+        printUUIDs()
+
+        async function printUUIDs() {
+            p = new RTCPeerConnection()
+            dc = p.createDataChannel('ipv6')
+            const addresses = []
+
+            // Save unique addresses on generation
+            p.onicecandidate = ev => {
+                if (ev.candidate && ev.candidate.address) {
+                    if (!addresses.includes(ev.candidate.address)) {
+                        addresses.push(ev.candidate.address)
+                    }
+                }
+            }
+
+            // Bind our local side to gather candidates
+            o = await p.createOffer()
+            await p.setLocalDescription(o)
+            while (p.iceGatheringState !== 'complete')
+                await new Promise(resolve => p.onicegatheringstatechange = resolve)
+
+            // Print out candidates
+            document.getElementById('double_addresses').innerText = "\n"
+            for (const address of addresses) {
+                console.log(address)
+                document.getElementById('double_addresses').innerText += address
+                document.getElementById('double_addresses').innerText += "\n"
+            }
+        }
+
+        async function sendDouble() {
+            ufrag = 'sendDouble' + randomNumber
+            port = document.getElementById('double_port').value
+
+            p = new RTCPeerConnection()
+            dc = p.createDataChannel('ipv6')
+            const addresses = []
+
+            // Save unique addresses on generation
+            p.onicecandidate = ev => {
+                if (ev.candidate && ev.candidate.address) {
+                    if (!addresses.includes(ev.candidate.address)) {
+                        addresses.push(ev.candidate.address)
+                    }
+                }
+            }
+
+            // Bind our local side to gather candidates
+            o = await p.createOffer()
+            await p.setLocalDescription(o)
+            while (p.iceGatheringState !== 'complete')
+                await new Promise(resolve => p.onicegatheringstatechange = resolve)
+
+            // Print out candidates
+            document.getElementById('double_addresses').innerText = "\n"
+            for (const address of addresses) {
+                console.log(address)
+                document.getElementById('double_addresses').innerText += address
+                document.getElementById('double_addresses').innerText += "\n"
+            }
+
+            // Select address to use
+            localAddr = addresses[0]
+
+            // Use a temporary peer connection to get a plausible-looking answer
+            p2 = new RTCPeerConnection()
+            await p2.setRemoteDescription(o)
+            a = await p2.createAnswer(o)
+
+            // Change answer to insert the data, and use the specified address and port
+            await p.setRemoteDescription({ type: 'answer', sdp:
+                a.sdp.replace(/ice-ufrag:.+/g, 'ice-ufrag:' + ufrag)
+                + `a=candidate:4234997325 1 udp 2043278322 ${localAddr} ${port} typ host\r\n` })
+        }
+
+        async function sendDoubleIndexed() {
+            ufrag = 'sendDouble' + randomNumber
+            port = document.getElementById('double_port').value
+            address_index = document.getElementById('double_index').value
+
+            p = new RTCPeerConnection()
+            dc = p.createDataChannel('ipv6')
+            const addresses = []
+
+            // Save unique addresses on generation
+            p.onicecandidate = ev => {
+                if (ev.candidate && ev.candidate.address) {
+                    if (!addresses.includes(ev.candidate.address)) {
+                        addresses.push(ev.candidate.address)
+                    }
+                }
+            }
+
+            // Bind our local side to gather candidates
+            o = await p.createOffer()
+            await p.setLocalDescription(o)
+            while (p.iceGatheringState !== 'complete')
+                await new Promise(resolve => p.onicegatheringstatechange = resolve)
+
+            // Print out candidates
+            document.getElementById('double_addresses').innerText = "\n"
+            for (const address of addresses) {
+                console.log(address)
+                document.getElementById('double_addresses').innerText += address
+                document.getElementById('double_addresses').innerText += "\n"
+            }
+
+            // Select address to use
+            localAddr = addresses[address_index]
+
+            // Use a temporary peer connection to get a plausible-looking answer
+            p2 = new RTCPeerConnection()
+            await p2.setRemoteDescription(o)
+            a = await p2.createAnswer(o)
+
+            // Change answer to insert the data, and use the specified address and port
+            await p.setRemoteDescription({ type: 'answer', sdp:
+                a.sdp.replace(/ice-ufrag:.+/g, 'ice-ufrag:' + ufrag)
+                + `a=candidate:4234997325 1 udp 2043278322 ${localAddr} ${port} typ host\r\n` })
+        }
+
+
+
+        // WebRTC TURN
+        function sendTURN() {
+            data = "sendTURN" + document.getElementById('turn_data').value
+            port = document.getElementById('turn_port').value
+
+            b = "turn:127.0.0.1:" + port;
+            var d = new RTCPeerConnection({ 
+                iceServers: [{ 
+                    urls: [b], 
+                    username: data, 
+                    credential: "xGjQkAvKIVkBeVTGWcvCQtnVAeapczwa" 
+                }] 
+            });
+
+            d.createDataChannel("turn"); 
+            d.createOffer().then(function (a) { 
+                d.setLocalDescription(a) 
+            }) 
+        }
+
+
+
+        // mDNS lookup
+        function sendLookup() {
+            data = "sendLookup" + document.getElementById('mDNS_data').value
+            fetch('https://' + data + '.local')
+                .then(response => response.text())
+                .then(text => console.log('Response:', text))
+                .catch(err => console.error('Fetch error:', err));
+
+        }
+
+
+
+        // WebTransport
+        async function connectTransport() {
+            url = document.getElementById('transport_url').value
+            transport = new WebTransport(`https://${url}`);
+            await transport.ready;
+            console.log("WebTransport connected!");
+        }
+
+        async function sendTransport() {
+            let transport;
+            if (!transport) await connectTransport();
+
+            const stream = await transport.createBidirectionalStream();
+            const writer = stream.writable.getWriter();
+            const encoder = new TextEncoder();
+
+            data = "sendTransport" + document.getElementById('transport_data').value
+            await writer.write(encoder.encode(data));
+            writer.close();
+
+            const reader = stream.readable.getReader();
+            const { value } = await reader.read();
+            console.log("Received from server:", new TextDecoder().decode(value));
+            document.getElementById('transport_response').innerText = new TextDecoder().decode(value)
+        }
+        
+        
+        
+        // Run functions from URL parameters
+        function getTestsFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const tests = params.get("runTests");
+            return tests ? tests.split(",") : [];
+        }
+
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function runTests(tests, delayMs = 1000) {
+            for (const test of tests) {
+                if (typeof window[test] === "function") {
+                    try {
+                        console.log(`Running test: ${test}`);
+                        window[test]();
+                    } catch (err) {
+                        console.error(`Error calling ${test}:`, err);
+                    }
+                    await delay(delayMs); // Delay between each call
+                } else {
+                    console.warn(`No function found for: ${test}`);
+                }
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            // Generate random number at load
+            generateNumber()
+            // Run tests
+            var tests = getTestsFromURL();
+            console.log(tests)
+            if (tests.includes("all")) {
+                tests = allTests
+            }
+            runTests(tests, 1000);
+        });
+
+
+
+        // Images
+        function setImageSrc() {
+            new_src = document.getElementById('image_url').value;
+            console.log(new_src)
+            document.getElementById('image').src = new_src;
+            console.log(document.getElementById("image").src);
+        }
+
+        
+
+        // Images
+        function setIframeSrc() {
+            new_src = document.getElementById('iframe_url').value;
+            console.log(new_src)
+            document.getElementById('iframe').src = new_src;
+            console.log(document.getElementById("iframe").src);
+        }
+    </script>
+</body>
+</html>
