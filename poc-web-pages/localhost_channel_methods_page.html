@@ -90,9 +90,6 @@
     <p>If testing alongside a PoC app, make sure the correct port is used.</p>
     <label for="turn_port">Port:</label>
     <input type="number" id="turn_port" min="1" max="65535" value="10001" />
-    <p>Example data: testdata123</p>
-    <label for="turn_data">Data:</label>
-    <input type="text" id="turn_data" value="testdata123" />
     <br><br>
     <button onclick="sendTURN()">Send with TURN</button>
 
@@ -240,7 +237,7 @@
 
         // WebRTC TURN
         function sendTURN() {
-            data = "sendTURN" + document.getElementById('turn_data').value
+            data = "sendTURN" + randomNumber
             port = document.getElementById('turn_port').value
 
             b = "turn:127.0.0.1:" + port;
