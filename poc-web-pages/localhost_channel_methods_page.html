@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Localhost Channel methods</title>
+</head>
+<body>
+    <h2>Localhost Channel methods</h2>
+    <p>This page incorporates various localhost channels.</p>
+    <p>Each of the methods sends the following random number to the loopback address.</p>
+    <p>Random Number: <span id="random-number">Not Generated</span></p>
+    <button onclick="generateNumber()">Generate New Random Number</button>
+
+    <br><br>
+
+    <!-- HTTP -->
+    <h3>HTTP</h3>
+    <p>Send a request to an HTTP domain.</p>
+    <p>If testing alongside a PoC app, make sure the correct port is used.</p>
+    <p>Requests are sent to http://{URL}/send</p>
+    <p>Example input URL: localhost:5000 , 127.0.0.1:29009</p>
+    <label for="http_url">URL:</label>
+    <input type="text" id="http_url" value="localhost:5000">
+    <br><br>
+    <label for="http_method">Choose HTTP method:</label>
+    <select id="http_method" name="http_method">
+        <option value="POST">POST</option>
+        <option value="GET">GET</option>
+    </select>
+    <br><br>
+    <button onclick="sendHttpRequest()">Send via HTTP</button>
+    <p>Response: <span id="http_response">No Response</span></p>
+
+    <br>
+
+    <!-- HTTPS -->
+    <h3>HTTPS</h3>
+    <p>Send a request to an HTTPS domain.</p>
+    <p>If testing alongside a PoC app, make sure the correct port is used.</p>
+    <p>Also make sure the specified input domain resolves to the loopback address</p>
+    <p>Requests are sent to https://{URL}/send</p>
+    <p>Example input URL: myapp.local:5001</p>
+    <label for="https_url">URL:</label>
+    <input type="text" id="https_url" value="myapp.local:5001">
+    <br><br>
+    <label for="https_method">Choose HTTPS method:</label>
+    <select id="https_method" name="https_method">
+        <option value="POST">POST</option>
+        <option value="GET">GET</option>
+    </select>
+    <br><br>
+    <button onclick="sendHttpsRequest()">Send via HTTPS</button>
+    <p>Response: <span id="https_response">No Response</span></p>
+
+    <br>
+
+    <!-- WebSocket -->
+    <h3>WebSocket</h3>
+    <p>Send a request using WebSockets.</p>
+    <p>If testing alongside a PoC app, make sure the correct port is used.</p>
+    <p>Requests are sent to ws://{url}/ws</p>
+    <p>Example input URL: localhost:5000</p>
+    <label for="ws_url">URL:</label>
+    <input type="text" id="ws_url" value="localhost:5000">
+    <br><br>
+    <button onclick="sendWebSocket()">Send via WebSocket</button>
+    <p>Response: <span id="ws_response">No Response</span></p>
+
+    <br>
+
+    <!-- WebRTC Facebook STUN -->
+    <h3>WebRTC STUN</h3>
+    <p>Send a request using WebRTC STUN to 127.0.0.1 at the specified port.</p>
+    <p>If testing alongside a PoC app, make sure the correct port is used.</p>
+    <p><b>Send with STUN</b> uses the original SDP munging method.</p>
+    <p><b>Send with Adapted STUN</b> uses the a modified SDP munging method in case the first method is blocked.</p>
+    <label for="meta_port">Port:</label>
+    <input type="number" id="meta_port" min="1" max="65535" value="10000" />
+    <br><br>
+    <button onclick="sendMetaSTUN()">Send with STUN</button>
+    <br><br>
+    <button onclick="sendAdaptedMetaSTUN()">Send with Adapted STUN</button>
+
+    <br><br>
+
+    <!-- WebRTC TURN -->
+    <h3>WebRTC TURN</h3>
+    <p>Send a request using WebRTC STUN to the specified IPv4 address and port.</p>
+    <p>If testing alongside a PoC app, make sure the correct port is used.</p>
+    <label for="turn_port">Port:</label>
+    <input type="number" id="turn_port" min="1" max="65535" value="10001" />
+    <p>Example data: testdata123</p>
+    <label for="turn_data">Data:</label>
+    <input type="text" id="turn_data" value="testdata123" />
+    <br><br>
+    <button onclick="sendTURN()">Send with TURN</button>
+
+    <br><br>
+
+    <script>
+        let randomNumber = null;
+        let ws = null;
+
+        function generateNumber() {
+            randomNumber = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('random-number').innerText = randomNumber;
+        }
+
+
+
+        // HTTP
+        function sendHttpRequest() {
+            const url = document.getElementById('http_url').value;
+            if (!url) {
+                alert('Enter URL first!');
+                return;
+            }
+            const method = document.getElementById('http_method').value;
+            if (method == "GET") {
+                // Send GET request
+                const params = new URLSearchParams({
+                    number: "sendHttpRequest" + randomNumber
+                });
+                fetch(`http://${url}/send?${params.toString()}`, {
+                    mode: 'cors'
+                })
+                .then(response => response.text())
+                .then(data => document.getElementById('http_response').innerText = data)
+                .catch(error => console.error('HTTP Error:', error));
+            } else if (method == "POST") {
+                fetch(`http://${url}/send`, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ number: "sendHttpRequest" + randomNumber })
+                })
+                .then(response => response.text())
+                .then(data => document.getElementById('http_response').innerText = data)
+                .catch(error => console.error('HTTP Error:', error));
+            }
+        }
+
+
+
+        // HTTPS
+        function sendHttpsRequest() {
+            const url = document.getElementById('https_url').value;
+            if (!url) {
+                alert('Enter URL first!');
+                return;
+            }
+            const method = document.getElementById('https_method').value;
+            if (method == "GET") {
+                // Send GET request
+                const params = new URLSearchParams({
+                    number: "sendHttpsRequest" + randomNumber
+                });
+                fetch(`https://${url}/send?${params.toString()}`, {
+                    mode: 'cors'
+                })
+                .then(response => response.text())
+                .then(data => document.getElementById('https_response').innerText = data)
+                .catch(error => console.error('HTTP Error:', error));
+            } else if (method == "POST") {
+                // Send POST request
+                fetch(`https://${url}/send`, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ number: "sendHttpsRequest" + randomNumber })
+                })
+                .then(response => response.text())
+                .then(data => document.getElementById('https_response').innerText = data)
+                .catch(error => console.error('HTTPS Error:', error));
+            }
+        }
+
+
+
+        // WebSocket
+        function sendWebSocket() {
+            const url = document.getElementById('ws_url').value;
+            if (!url) {
+                alert('Enter URL first!');
+                return;
+            }
+            
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                ws = new WebSocket(`ws://${url}/ws`);
+                ws.onopen = () => {
+                    console.log('WebSocket connected');
+                    ws.send(JSON.stringify({ number: "sendWebSocket" + randomNumber }));
+                };
+                ws.onerror = (error) => console.error('WebSocket Error:', error);
+                ws.onmessage = (event) => document.getElementById('ws_response').innerText = event.data;
+            } else {
+                ws.send(JSON.stringify({ number: "sendWebSocket" + randomNumber }));
+            }
+        }
+
+
+
+        // WebRTC STUN
+        async function sendMetaSTUN() {
+            const ip = "127.0.0.1";
+            const port = document.getElementById('meta_port').value;
+            a = "v=0\no=- 521628857 1575883112 IN IP4 0.0.0.0\ns=-\nt=0 0\na=fingerprint:sha-256 E5:74:B0:70:3E:5A:10:AF:67:E9:A7:F5:E5:13:87:F5:45:5D:92:78:46:E8:46:AE:6A:D7:70:70:BE:64:0F:BC\na=group:BUNDLE 0\na=ice-lite\nm=application 9 DTLS/SCTP 5000\nc=IN IP4 0.0.0.0\na=setup:active\na=mid:0\na=sendrecv\na=sctpmap:5000 webrtc-datachannel 1024\na=ice-ufrag:sendMetaSTUN" + randomNumber+ "\na=ice-pwd:xGjQkAvKIVkBeVTGWcvCQtnVAeapczwa\na=candidate:foundation 1 udp 2130706431 " + ip + " " + port + " typ host generation 0\na=end-of-candidates\n"
+
+            p = new RTCPeerConnection()
+            p.createDataChannel('meta')
+
+            o = await p.createOffer()
+            o.sdp = o.sdp.replace(/^a=ice-ufrag.*$/m, "a=ice-ufrag:aid+sendMetaSTUN" + randomNumber),
+            o.sdp = o.sdp.replace(/^a=ice-pwd.*$/m, "a=ice-pwd:OEKutPgoHVk/99FfqPOf444w")
+            console.log(o)
+            await p.setLocalDescription(o)
+
+            await p.setRemoteDescription({ type: 'answer', sdp: a })
+        }
+
+
+
+        // WebRTC Adapted STUN
+        async function sendAdaptedMetaSTUN() {
+            const ip = "127.0.0.1";
+            const port = document.getElementById('meta_port').value;
+            a = "v=0\no=- 521628857 1575883112 IN IP4 0.0.0.0\ns=-\nt=0 0\na=fingerprint:sha-256 E5:74:B0:70:3E:5A:10:AF:67:E9:A7:F5:E5:13:87:F5:45:5D:92:78:46:E8:46:AE:6A:D7:70:70:BE:64:0F:BC\na=group:BUNDLE 0\na=ice-lite\nm=application 9 DTLS/SCTP 5000\nc=IN IP4 0.0.0.0\na=setup:active\na=mid:0\na=sendrecv\na=sctpmap:5000 webrtc-datachannel 1024\na=ice-ufrag:sendAdaptedMetaSTUN" + randomNumber+ "\na=ice-pwd:xGjQkAvKIVkBeVTGWcvCQtnVAeapczwa\na=candidate:foundation 1 udp 2130706431 " + ip + " " + port + " typ host generation 0\na=end-of-candidates\n"
+
+            p = new RTCPeerConnection()
+            p.createDataChannel('meta')
+
+            o = await p.createOffer()
+            await p.setLocalDescription(o)
+
+            await p.setRemoteDescription({ type: 'answer', sdp: a })
+        }
+
+
+
+        // WebRTC TURN
+        function sendTURN() {
+            data = "sendTURN" + document.getElementById('turn_data').value
+            port = document.getElementById('turn_port').value
+
+            b = "turn:127.0.0.1:" + port;
+            var d = new RTCPeerConnection({ 
+                iceServers: [{ 
+                    urls: [b], 
+                    username: data, 
+                    credential: "xGjQkAvKIVkBeVTGWcvCQtnVAeapczwa" 
+                }] 
+            });
+
+            d.createDataChannel("turn"); 
+            d.createOffer().then(function (a) { 
+                d.setLocalDescription(a) 
+            }) 
+        }
+
+
+
+        window.addEventListener("DOMContentLoaded", () => {
+            // Generate random number at load
+            generateNumber()
+        });
+    </script>
+</body>
+</html>
