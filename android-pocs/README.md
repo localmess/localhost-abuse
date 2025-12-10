@@ -19,7 +19,7 @@ Proof-of-concept Android apps that expose localhost endpoints or listeners to re
 - `StealthUDP/` — UDP listener on 12580 capturing incoming datagrams.
 - `StealthTURN/` — Minimal STUN/TURN responder on UDP 12586 (issues nonces and allocation replies).
 - `webrtc_mdns/` — Foreground service sniffing mDNS on 224.0.0.251:5353 to surface WebRTC host candidates; requests Nearby devices permission on Android 14+.
-- `XProfilePOC/` — HTTP servers on 55556/55557 that store Origin/browser metadata in a local history view.
+- `XProfilePOC/` — Cross-profile PoC. Opens HTTP servers on 55556/55557 that store Origin/browser metadata in a local history view to show the localhost abuse feasibility across Android profiles.
 - `YandexPoC/` — HTTP servers on 29009/29010/30102/30103 logging incoming requests plus origin/browser info.
 
 ---
