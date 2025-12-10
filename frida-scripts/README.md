@@ -93,3 +93,9 @@ Certificate is placed in /system/etc/security/cacerts/ as <hash>.0 using openssl
 * ✅ Intercepted traffic is logged to .dump files under ./mitmdumps/, named by package and version.
 * ✅ A full session log is saved to logs.txt for later debugging or replay.
 
+---
+
+## 🙏 Credits
+
+- `facebook_ssl_bypass.js` is adapted from [Skuxblan/Facebook-SSL-Pinning-Bypass](https://github.com/Skuxblan/Facebook-SSL-Pinning-Bypass).
+- `instagram_ssl_bypass.js` is adapted from [expectedfailure/Instagram-SSL-Pinning-Bypass-Research](https://github.com/expectedfailure/Instagram-SSL-Pinning-Bypass-Research).
