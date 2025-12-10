@@ -44,7 +44,7 @@ Repeat in each app folder (`StealthAppWS`, `StealthTURN`, `StealthUDP`, `webrtc_
 ## 🚀 Using the PoCs
 
 - Launch the installed app; background services start automatically and the UI shows the bound IP/ports (where applicable).
-- Drive traffic from your harness or the `poc-web-pages` toward the exposed localhost ports listed above.
+- Drive traffic from the `poc-web-pages` toward the exposed localhost ports listed above.
 - For `webrtc_mdns`, tap **Start** to begin sniffing mDNS, **Stop** to release the multicast lock, and **Clear** to reset the log.
 - `XProfilePOC` and `YandexPoC` include a history screen to review stored origins/browsers.
 
