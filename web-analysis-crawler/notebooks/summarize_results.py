@@ -1,26 +1,30 @@
 import pandas as pd
 import json
 
-# results_input__folder = "results/"
-results_input__folder = "_new_results/"
+##########################################
+#   Input and output params              #
+##########################################
+
+results_input__folder = "results/"
 
 # location = "frankfurt"
 location = "new_york"
 
-# version = "_100k"
+# version = "_android"
 # version = "_desktop"
-# version = "_recrawl"
+# version = "_android_recrawl"
 # version = "_ios"
-version = "_post"
+version = "_android_post"
 
-# output_folder = "results/"
-output_folder = "_new_results/"
+output_folder = "results/"
 
 webrtc_csv_path = results_input__folder + 'webRTC_output_' + location + version + '.csv'
 requests_csv_path = results_input__folder + 'requests_output_' + location + version + '.csv'
 # resolved_csv_path = results_input__folder + 'resolved_requests_output_' + location + version + '.csv'
 output_json_path = output_folder + 'summary_output_' + location + version + '.json'
 markdown_output_path = output_folder + 'summary_report_' + location + version + '.md'
+
+##########################################
 
 min_urls_threshold = 5
 

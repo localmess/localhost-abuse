@@ -11,22 +11,25 @@ from functools import lru_cache
 from concurrent.futures import ProcessPoolExecutor, as_completed, TimeoutError as concurrentTimeoutError
 from tqdm import tqdm
 
+##########################################
+#   Input and output params              #
+##########################################
+
 # location = "frankfurt"
 location = "new_york"
 
-# version = "_100k"
+# version = "_android"
 # version = "_desktop"
-# version = "_recrawl"
+# version = "_android_recrawl"
 # version = "_ios"
-version = "_post"
+version = "_android_post"
 
-# input_folder = location + "_data/data\\"
-# input_folder = "desktop_data/" + location + "/data\\"
-# input_folder = location + "_recrawl" + "/data\\"
-# input_folder = "iOS_crawls/" + location + "_ios_data\\"
-input_folder = "../Meta_Pixel/post_release_crawls/" + location + "_post_data\\"
 
-results_folder = "_new_results/"
+INPUT_FOLDER = location + version + "_data"
+
+results_folder = "results/"
+
+##########################################
 
 rank_file_path = "202502.csv"
 outputSize = 100000
@@ -286,7 +289,7 @@ def analyze_file(file_name : str):
     Returns two lists for both request results and WebRTC results.
     """
     # print(f"🔍 Processing: {file_name}")
-    if file_name == input_folder + "metadata.json":
+    if file_name == INPUT_FOLDER + "metadata.json":
         return None, None
     # Load the data from the .json file
     f = open(file_name, encoding="utf-8")
@@ -314,7 +317,7 @@ def analyze_file(file_name : str):
     return request_results, webRTC_results
 
 def main():
-    files = glob.glob(input_folder + '*.json', recursive = False)
+    files = glob.glob(INPUT_FOLDER + '*.json', recursive = False)
     crawl_count = 0
 
     print("Retrieving Ranking...")

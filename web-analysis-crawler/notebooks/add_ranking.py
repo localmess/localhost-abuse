@@ -13,29 +13,27 @@ from tqdm import tqdm
 rank_file_path = "202502.csv"
 outputSize = 100000
 
-# results_folder = "results/ranked_"
-results_folder = "_new_results/ranked_"
+##########################################
+#   Input and output params              #
+##########################################
+
+results_folder = "results/ranked_"
 
 # location = "frankfurt"
 location = "new_york"
 
-# version = "_100k"
+# version = "_android"
 # version = "_desktop"
-# version = "_recrawl"
+# version = "_android_recrawl"
 # version = "_ios"
-version = "_post"
+version = "_android_post"
 
-# input_folder = "new_york_data/data\\"
-# input_folder = "frankfurt_data/data\\"
-# input_file = "results/requests_output_" + location + version + ".csv"
-# output = "requests_output"
+input_file = "results/requests_output_" + location + version + ".csv"
+output = "requests_output"
 # input_file = "results/webRTC_output_" + location + version + ".csv"
 # output = "webRTC_output"
 
-input_file = "_new_results/requests_output_" + location + version + ".csv"
-output = "requests_output"
-# input_file = "_new_results/webRTC_output_" + location + version + ".csv"
-# output = "webRTC_output"
+##########################################
 
 TIMEOUT_SECONDS = 30
 ranking = {}
