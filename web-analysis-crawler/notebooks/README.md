@@ -1,5 +1,7 @@
 # 📊 Analysis Scripts
 
+Helper scripts to process crawl output, add rankings, and summarize localhost-request findings.
+
 ---
 
 ## 📁 Folder Structure
