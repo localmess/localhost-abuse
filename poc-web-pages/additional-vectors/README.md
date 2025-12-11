@@ -24,12 +24,11 @@ Two extra localhost abuse vectors that demonstrate Chrome LNA bypass techniques 
 
 ## 📌 Overview
 
-This folder contains two files used for the additional attack vectors described in Section 7 of the paper. The `*.py` server file recreates the app listening behaviour.
+This folder contains the two additional attack vectors from Section 7 of the paper. The `*.py` server file recreates the app listening behaviour.
 
-- [`additional_vectors.html`](https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/additional-vectors/additional_vectors.html) contains the two additional vectors.
-  - **WebRTC & IPv6 Global Unicast Addresses**: WebRTC STUN binding requests to IPv6 Global Unicast Addresses to bypass Chrome LNA (Section 7.1).
-  - **mDNS lookup**: mDNS lookup requests to bypass Chrome LNA (Section 7.2).
-- [`mdns.py`](https://github.com/localmess/localhost-abuse/tree/main/poc-web-pages/additional-vectors/mdns.py) can be used alongside `additional_vectors.html` to receive mDNS lookup requests as described in Section 7.2.
+- [`additional_vectors.html`](https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/additional-vectors/additional_vectors.html) hosts both vectors:
+  - **WebRTC & IPv6 Global Unicast Addresses** (Section 7.1): WebRTC STUN binding requests to IPv6 Global Unicast Addresses to bypass Chrome LNA.
+  - **mDNS lookup** (Section 7.2): mDNS lookup requests to bypass Chrome LNA.
 
 ---
 
