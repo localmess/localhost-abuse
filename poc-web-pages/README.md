@@ -25,7 +25,7 @@ Web pages and servers to reproduce Meta and Yandex localhost channel methods.
 
 ---
 
-## 📌 Meta/Yandex Localhost Methods & Server Mapping
+## 📌 Meta/Yandex Localhost Abuse Methods & Server Mapping
 
 This folder contains `.html` and `.py` files to recreate the techniques used by Meta and Yandex.
 
