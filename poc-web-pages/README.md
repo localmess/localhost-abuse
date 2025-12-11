@@ -65,7 +65,7 @@ For the domain resolving to 127.0.0.1, the computer's `hosts` file needs to be e
 To generate the certificate:
 1. Run the following command in the same folder as the `http_https_websocket.py` file (Replace `myapp.local` with the chosen domain). 
 ```sh
-openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem \ -days 365 \ -subj "/CN=myapp.local" \ -addext "subjectAltName=DNS:myapp.local"
+openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -days 365 -subj "/CN=myapp.local" -addext "subjectAltName=DNS:myapp.local"
 ```
 2. Run [`python http_https_websocket.py`](https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/http_https_websocket.py) in a command line (Default port for HTTPS is 5001).
 3. Visit the domain at the port it is hosted in a browser (e.g. `https://myapp.local:5001`).
