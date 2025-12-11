@@ -1,6 +1,7 @@
 # 🛰️ Additional Localhost Attack Vectors
 
 Two extra localhost abuse vectors that demonstrate Chrome LNA bypass techniques (Section 7 of the paper).
+
 ---
 
 ## ⚙️ Requirements
