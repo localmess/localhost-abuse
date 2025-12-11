@@ -118,7 +118,13 @@ def run_http():
     app1.run(host='0.0.0.0', port=5000)
 
 def run_https():
-    app2.run(ssl_context=('cert.pem', 'key.pem'), host='0.0.0.0', port=5001)
+    try:
+        app2.run(ssl_context=('cert.pem', 'key.pem'), host='0.0.0.0', port=5001)
+        # app2.run(host='0.0.0.0', port=5001)
+    except FileNotFoundError as e:
+        print(f"ERROR: file not found {e}")
+        print("Check that 'cert.pem', 'key.pem' are generated for the required domain.")
+        print("HTTPS server not started")
 
 
 if __name__ == '__main__':
