@@ -2,13 +2,21 @@
 
 ---
 
-## 📁 Files
+## 📁 Folder Structure
 
-- [`process_output.py`](https://github.com/localmess/localhost-abuse/blob/main/web-analysis-crawler/notebooks/process_output.py): Main processor; reads crawl output and checks each site for localhost requests.
-- [`add_ranking.py`](https://github.com/localmess/localhost-abuse/blob/main/web-analysis-crawler/notebooks/add_ranking.py): Adds site rankings to the processed output from `process_output.py`.
-- [`summarize_results.py`](https://github.com/localmess/localhost-abuse/blob/main/web-analysis-crawler/notebooks/summarize_results.py): Produces `.md` summaries of top ports and domains sending localhost requests.
-- [`202502.csv`](https://github.com/localmess/localhost-abuse/blob/main/web-analysis-crawler/notebooks/202502.csv): CrUX ranking (Feb 2025) used to generate the 100k list of sites; sourced from [`crux-top-lists`](https://github.com/zakird/crux-top-lists/blob/main/data/global/202502.csv.gz).
-- [`convert_csv_list_to_txt.ipynb`](https://github.com/localmess/localhost-abuse/blob/main/web-analysis-crawler/notebooks/convert_csv_list_to_txt.ipynb): Converts `202502.csv` into a `.txt` file (one site per line).
+```
+.
+├── process_output.py             # Main processor: checks crawl output for localhost requests
+├── add_ranking.py                # Adds site rankings to process_output.py output
+├── summarize_results.py          # Summarizes top ports/domains to .md files
+├── 202502.csv                    # CrUX ranking (Feb 2025) used for the 100k list
+├── convert_csv_list_to_txt.ipynb # Converts 202502.csv to a one-site-per-line .txt list
+└── README.md
+```
+
+References:
+- [`202502.csv`](https://github.com/localmess/localhost-abuse/blob/main/web-analysis-crawler/notebooks/202502.csv) (CrUX Feb 2025; source: [`crux-top-lists`](https://github.com/zakird/crux-top-lists/blob/main/data/global/202502.csv.gz))
+
 
 ---
 
