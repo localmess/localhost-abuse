@@ -1,7 +1,7 @@
 # 🔓 Android TLS/SSL Unpinning with Frida + mitmweb
 
 This tool allows you to inject Frida-based SSL unpinning hooks to bypasses SSL/TLS
-certificate validation in Android apps (meta and otherwise) and transparently
+certificate validation in Android apps (Meta and otherwise) and transparently
 intercept their HTTPS traffic using `mitmproxy`/`mitmweb`.
 
 ---

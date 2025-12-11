@@ -14,13 +14,16 @@ Proof-of-concept Android apps that expose localhost endpoints or listeners to re
 
 ## 📁 Folder Structure
 
-- `StealthApp/` — NanoHTTPD HTTP server on 13380–13387 that logs headers, query params, and bodies.
-- `StealthAppWS/` — WebSocket server on 12380–12387, replies with `200`, and logs text/binary frames.
-- `StealthUDP/` — UDP listener on 12580 capturing incoming datagrams.
-- `StealthTURN/` — Minimal STUN/TURN responder on UDP 12586 (issues nonces and allocation replies).
-- `webrtc_mdns/` — Foreground service sniffing mDNS on 224.0.0.251:5353 to surface WebRTC host candidates; requests Nearby devices permission on Android 14+.
-- `XProfilePOC/` — Cross-profile PoC. Opens HTTP servers on 55556/55557 that store Origin/browser metadata in a local history view to show the localhost abuse feasibility across Android profiles.
-- `YandexPoC/` — HTTP servers on 29009/29010/30102/30103 logging incoming requests plus origin/browser info.
+```
+.
+├── StealthApp/      # NanoHTTPD HTTP server on 13380–13387 that logs headers, query params, and bodies.
+├── StealthAppWS/    # WebSocket server on 12380–12387; replies with `200`` and logs text/binary frames.
+├── StealthUDP/      # UDP listener on 12580 capturing incoming datagrams.
+├── StealthTURN/     # Minimal STUN/TURN responder on UDP 12586 (issues nonces and allocation replies).
+├── webrtc_mdns/     # Foreground service sniffing mDNS on 224.0.0.251:5353 to print WebRTC host candidates; requests Nearby devices permission on Android 14+.
+├── XProfilePOC/     # Cross-profile PoC with HTTP servers on 55556/55557 storing Origin/browser metadata to demonstrate localhost abuse across profiles.
+└── YandexPoC/       # HTTP servers on 29009/29010/30102/30103 logging incoming requests plus origin/browser info.
+```
 
 ---
 
