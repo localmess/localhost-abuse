@@ -50,7 +50,7 @@ const VISUAL_DEBUG = false;
 const HEADLESS = true;
 
 const INJECT_WEBRTC = true;
-const CONSENT_WITH_PRIVACCEPT = true;
+const CONSENT_WITH_PRIVACCEPT = false;
 
 /**
  * @param {function(...any):void} log

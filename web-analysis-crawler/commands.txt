@@ -1,9 +1,3 @@
-npm run crawl -- -i ./input/list_test_100.txt -o ./data/ -f -l ./temp_data/ --reporters cli,file
-npm run crawl -- -i ./input/list_1k.txt -o ./data/ -v -f -m
-
 npm run crawl -- -i ./input/list_100k.txt -o ./data/ -f -m -l ./temp_data/ --reporters cli,file
 npm run crawl -- -i ./input/list_100k.txt -o ./data/ -f -l ./temp_data/ --reporters cli,file
-
-npm run crawl -- -i ./input/detected_urls_frankfurt.txt -o ./data/ -f -m -l ./temp_data/ --reporters cli,file
-npm run crawl -- -i ./input/detected_urls_new_york.txt -o ./data/ -f -m -l ./temp_data/ --reporters cli,file
 

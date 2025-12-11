@@ -12,10 +12,10 @@ const privAcceptSource = fs.readFileSync('./helpers/privAccept.js', 'utf8');
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36'
 
 // // Android Chrome
-const MOBILE_USER_AGENT = 'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36';
+// const MOBILE_USER_AGENT = 'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36';
 
 // // iOS Safari
-// const MOBILE_USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1';
+const MOBILE_USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1';
 
 const DEFAULT_VIEWPORT = {
     width: 1440,//px
@@ -24,22 +24,22 @@ const DEFAULT_VIEWPORT = {
 };
 
 // // Android Chrome
-const MOBILE_VIEWPORT = {
-    width: 1080,
-    height: 2400,
-    deviceScaleFactor: 3,
-    isMobile: true,
-    hasTouch: true
-};
-
-// // iOS Safari
 // const MOBILE_VIEWPORT = {
-//     width: 430,
-//     height: 932,
+//     width: 1080,
+//     height: 2400,
 //     deviceScaleFactor: 3,
 //     isMobile: true,
 //     hasTouch: true
 // };
+
+// // iOS Safari
+const MOBILE_VIEWPORT = {
+    width: 430,
+    height: 932,
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true
+};
 
 const waitExtra = true;
 const extraDelayForTestingMs = 10000;
