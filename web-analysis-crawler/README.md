@@ -1,7 +1,8 @@
 # web-analysis-crawler
 
 Based on DuckDuckGo Tracker Radar Collector: https://github.com/duckduckgo/tracker-radar-collector/tree/main
-Main additions are the collection of WebSocket frames as well as intercepting WebRTC related function calls.
+
+The main additions are the collection of WebSocket frames as well as intercepting WebRTC related function calls.
  
 ## How to use
 
