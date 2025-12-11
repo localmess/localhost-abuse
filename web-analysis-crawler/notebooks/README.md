@@ -8,9 +8,7 @@
 
 ## How to use
 
-<ol>
-<li>Change the `Input and output params` in the `process_output.py` file to point to the output data of the specific crawl that needs to be processed.</li>
-<li>Run `python process_output.py`</li>
-<li>Change the `Input and output params` in both `add_ranking.py` and `summarize_results.py` to point to the output data of `process_output.py`</li>
-<li>Run `python add_ranking.py` and `python summarize_results.py`</li>
-</ol>
+1. Change the `Input and output params` in the `process_output.py` file to point to the output data of the specific crawl that needs to be processed.</li>
+2. Run `python process_output.py`</li>
+3. Change the `Input and output params` in both `add_ranking.py` and `summarize_results.py` to point to the output data of `process_output.py`</li>
+4. Run `python add_ranking.py` and `python summarize_results.py`</li>
