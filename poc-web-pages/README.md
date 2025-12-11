@@ -30,7 +30,7 @@ Web pages and servers to reproduce Meta and Yandex localhost channel methods.
 This folder contains `.html` and `.py` files to recreate the techniques used by Meta and Yandex.
 
 - [`localhost_channel_methods.html`](https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/localhost_channel_methods.html) recreates all five methods. Hosted version: https://gistcdn.githack.com/TimVlummens/a57bf1eba6d102aaa378ad0c23a5f2a3/raw/c827400a54bc82b73302c6bebaf65dabbe34bdaf/localhost_channel_methods_page.html
-- The `*.py` server files recreate the app listening behaviour. Server → method mapping:
+- The `*.py` server files recreate the app listening behaviour. Find below the Server → method mapping:
   - **HTTP** → `http_https_websocket.py` (`/send`, port 5000). Sends requests to localhost over HTTP. Used by Yandex since February 2017 until June 2025 and by Meta since September 2024 until October 2024.
   - **HTTPS** → `http_https_websocket.py` (`/send`, port 5001 over HTTPS). Sends requests over HTTPS to a domain resolving to 127.0.0.1. Used by Yandex since May 2018 until June 2025.
   - **WebSocket** → `http_https_websocket.py` (`/ws`, port 5000). Establishes a WebSocket connection with a server on localhost. Used by Meta from November 2024 to January 2025.
