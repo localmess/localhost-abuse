@@ -1,9 +1,11 @@
 # Reproduction of results
-When using the web-pages in this folder, it is best to use the Chrome browser and accept the prompt to access the local network.
+When using the web-pages in this folder, it is best to use the Chrome browser, as both the Brave and Firefox browser may block certain methods.
+When prompted, accept the prompt to access the local network.
 
 ## Methods used by Meta and Yandex
 This folder contains various .html and .py files allowing for the reproduction of the methods used by Meta and Yandex.
 `localhost_channel_methods_page.html` contains recreations of the five methods these companies used.
+The `*.py` server files recreate the app listening behaviour.
  - **HTTP**: method using requests send to the localhost over HTTP. Used by Yandex since February 2017 until June 2025 and by Meta since September 2024 until October 2024. Run [`test_server.py`](https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/test_server.py) to receive these requests.
  - **HTTPS**: method using requests sent over HTTPS to a domain resolving to 127.0.0.1. Used by Yandex since May 2018 until June 2025. Run [`test_server.py`](https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/test_server.py) to receive these requests. To run this method, make sure you use a domain that resolves to 127.0.0.1 (e.g. by rebinding it in your device's host file). The receiving server also needs a certificate for that domain. A certificate can be created in the same folder as the scripts using the following command:
 `openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem \ -days 365 \ -subj "/CN=myapp.local" \ -addext "subjectAltName=DNS:myapp.local"`
@@ -21,3 +23,4 @@ The `lna-testing` folder contains two additional .html files used for evaluating
 ## Demos
 
 https://gist.githack.com/TimVlummens/89af087aaaf1d79dfb0261b9c5f21d2e/raw/9109cfb0c958766dde19edbecc6c5ed2ff08a093/WebRTC_IPv6.html
+
