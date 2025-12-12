@@ -93,12 +93,20 @@ WebRTC TURN requests are not visible in DevTools _Network_; use packet captures 
 The HTTPS method requires a domain resolving to 127.0.0.1 and matching certificates.
 
 1. Map a loopback domain: edit the `hosts` file (e.g., `C:\Windows\System32\drivers\etc\hosts` on Windows, `/etc/hosts` on Linux/macOS) to bind a chosen domain (e.g., `myapp.local`) to 127.0.0.1.
+<p align="center">
+<img width="451" height="296" alt="hosts file with added domain" src="https://github.com/user-attachments/assets/8144e54c-5eb4-4728-a007-98309a1205cd" />
+</p>
 2. Generate the certificate from the folder containing `http_https_websocket.py` (replace `myapp.local` with your domain):
 
     ```sh
     openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -days 365 -subj "/CN=myapp.local" -addext "subjectAltName=DNS:myapp.local"
     ```
-
+<p align="center">
+<img width="237" height="143" alt="certificate made and added to the folder" src="https://github.com/user-attachments/assets/9d8c6890-be55-4f9e-bfe1-d6dc187a8663" />
+</p>
 3. Start the HTTPS server: run [`python http_https_websocket.py`](https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/http_https_websocket.py) (default HTTPS port: 5001).
 4. Visit the domain and port in a browser (e.g., `https://myapp.local:5001`).
-5. Accept the certificate.
+5. Click on _Advanced_ and then on _Proceed to myapp.local (unsafe)_ to accept the certificate.
+<p align="center">
+<img width="600" height="464" alt="Visiting the binded domain with warning" src="https://github.com/user-attachments/assets/b8bf64bd-3664-42d2-89bb-767f92ad9125" />
+</p>
