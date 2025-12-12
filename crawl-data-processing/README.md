@@ -17,7 +17,7 @@ Helper scripts to process crawl output, add rankings, and summarize localhost-re
 
 ```
 .
-├── crawl_result_csvs.tar.gz      # Summaries from the original crawl data
+├── crawl_result_csvs.tar.gz      # Summary CSVs obtained from the raw crawl data, using the scripts present in this folder.
 ├── process_output.py             # Main processor: checks crawl output for localhost requests
 ├── add_ranking.py                # Adds site rankings to process_output.py output
 ├── summarize_results.py          # Summarizes top ports/domains to .md files
@@ -25,10 +25,6 @@ Helper scripts to process crawl output, add rankings, and summarize localhost-re
 ├── convert_csv_list_to_txt.ipynb # Converts 202502.csv to a one-site-per-line .txt list
 └── README.md
 ```
-
-References:
-- [`202502.csv`](https://github.com/localmess/localhost-abuse/blob/main/web-analysis-crawler/notebooks/202502.csv) (CrUX Feb 2025; source: [`crux-top-lists`](https://github.com/zakird/crux-top-lists/blob/main/data/global/202502.csv.gz))
-
 
 ---
 
@@ -68,9 +64,7 @@ frankfurt_android_post_data.tar.gz | EU | Android | Accept | June 2025 | 100,000
 new_york_android_post_data.tar.gz | US | Android | Accept | June 2025 | 100,000 | list_100k.txt
 new_york_ios_data.tar.gz | US | iOS | Accept | June 2025 | 100,000 | list_100k.txt
 
+*: EU: Frankfurt; US: New York; **: URL lists used in the crawls can be found in the `web-analysis-crawler/input/` folder; ***: Only targeted websites where we observed localhost communications
 
-*: EU: Frankfurt; US: New York
-
-**: URL lists used in the crawls can be found in the `web-analysis-crawler/input/` folder
-
-***: Only targeted websites where we observed localhost communications
+## ℹ️ References:
+- [`202502.csv`](https://github.com/localmess/localhost-abuse/blob/main/web-analysis-crawler/notebooks/202502.csv) (CrUX Feb 2025 is based on Durumeric, Z., & Adrian, D. (2022, December). Chrome (CrUX) Top Million Websites. Retrieved from https://github.com/zakird/crux-top-lists/blob/main/data/global/202502.csv.gz)
