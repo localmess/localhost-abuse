@@ -1,4 +1,4 @@
-# Artifacts for "Bridges to Self: Silent Web-to-App Tracking on Mobile via Localhost" (USENIX Security'26)
+# 🔗 Artifacts for "Bridges to Self: Silent Web-to-App Tracking on Mobile via Localhost" (USENIX Security'26)
 
 The repository contains code and data for the USENIX Security Submission #1381. Detailed instructions can be found by following the links:
 - [Proof-of-Concept Android apps](https://github.com/localmess/localhost-abuse/tree/main/android-pocs): Contains Proof-of-Concept (PoC) Android apps that demonstrates how apps can receive IDs shared by web script via different protocols and methods (HTTP, WebSocket, WebRTC-STUN, WebRTC-TURN, mDNS).
@@ -10,17 +10,17 @@ The repository contains code and data for the USENIX Security Submission #1381. 
 <img width="3958" height="1412" alt="Figure showing how web scripts can share IDs with mobile apps via different methods. Taken from the localmess.github.io webpage." src="https://github.com/user-attachments/assets/51d161b4-d4e3-4715-a210-417b2fbf05f9" />
 
 
-## Acknowledgements
+## 🙏 Acknowledgements
  We thank all participating browser vendors (Chrome, Mozilla, DuckDuckGo, Brave) for their collaboration. Special thanks to:
 
-- Álvaro Feal, for his help with mobile app analysis
+- Álvaro Feal, for his help with mobile app testing in the US.
 - Tom Van Goethem, for diligently handling our disclosure
 - Bart Preneel, for his help with media outreach
 - HTTP Archive Project, for their public dataset that enabled our longitudinal analysis
 - Schloss Dagstuhl – Leibniz Center for Informatics, for sparking this collaboration
 - DuckDuckGo's [tracker-radar-collector](https://github.com/duckduckgo/tracker-radar-collector), which our web crawler is based on.
 
-## Reference
+## 📚 Reference
 
 You can use the following BibTeX to cite our paper:
 ```
