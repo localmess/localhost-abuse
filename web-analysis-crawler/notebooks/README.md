@@ -4,6 +4,15 @@ Helper scripts to process crawl output, add rankings, and summarize localhost-re
 
 ---
 
+## ⚙️ Requirements
+
+- python packages:
+  - pandas
+  - tld
+  - tqdm
+
+---
+
 ## 📁 Folder Structure
 
 ```
