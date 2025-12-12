@@ -26,7 +26,6 @@ Our web crawler, built on [duckduckgo/tracker-radar-collector](https://github.co
 ├── crawlerIOS.js           # iOS variant with consent (rename to crawler.js to use)
 ├── commands.txt            # Example crawl commands
 ├── input/                  # URL lists (e.g., list_100k.txt)
-├── notebooks/              # Post-processing and CrUX ranking scripts
 └── README.md
 ```
 
@@ -84,10 +83,3 @@ For full crawls:
 - `-l, --log-path <path>`: location for all logs
 - `-f, --force-overwrite`: overwrite existing output files (otherwise skips existing)
 - `-m, --mobile`: emulate a mobile device when crawling
-
----
-
-## 📂 Additional Content
-
-- [`input/`](https://github.com/localmess/localhost-abuse/tree/main/web-analysis-crawler/input) contains the crawl input files. [`input/list_100k.txt`](https://github.com/localmess/localhost-abuse/blob/main/web-analysis-crawler/input/list_100k.txt) is the 100k-site list used across EU and US regions.
-- [`notebooks/`](https://github.com/localmess/localhost-abuse/tree/main/web-analysis-crawler/notebooks) contains scripts to process crawl output and the CrUX ranking.
