@@ -12,7 +12,7 @@ import argparse
 from concurrent.futures import ProcessPoolExecutor, as_completed, TimeoutError as concurrentTimeoutError
 from tqdm import tqdm
 
-# rank_file_path = "202502.csv"
+rank_file_path = "202502.csv"
 outputSize = 100000
 
 LOCALHOST_IPS = {"127.0.0.1", "::1", "0.0.0.0"}
@@ -310,11 +310,11 @@ def parse_args():
         help="Folder where output CSV files will be written"
     )
 
-    parser.add_argument(
-        "--rank-file",
-        default="202502.csv",
-        help="CSV file containing ranking information, defaults to 202502.csv in the same folder as this script"
-    )
+    # parser.add_argument(
+    #     "--rank-file",
+    #     default="202502.csv",
+    #     help="CSV file containing ranking information, defaults to 202502.csv in the same folder as this script"
+    # )
 
     parser.add_argument(
         "--location",
@@ -335,7 +335,7 @@ def main():
 
     INPUT_FOLDER = args.input_folder.rstrip("/") + "/"
     OUTPUT_FOLDER = args.output_folder.rstrip("/") + "/"
-    rank_file_path = args.rank_file
+    # rank_file_path = args.rank_file
     location = args.location
     version = args.version
 
