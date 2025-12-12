@@ -32,24 +32,19 @@ Web pages and server scripts to reproduce Meta and Yandex localhost channel meth
 
 ---
 
-## 📌 Meta/Yandex Localhost Abuse Methods & Server Mapping
+## 📌 Localhost Abuse Methods
 
-This folder contains `.html` and `.py` files to recreate the techniques used by Meta and Yandex.
-
+This folder contains varuous web pages and server scripts (`.py`) that can be used to easily replicate localhost abuse methods without using mobile apps.
 - [`localhost_channel_methods.html`](https://github.com/localmess/localhost-abuse/blob/main/poc-web-pages/localhost_channel_methods.html) recreates all five methods of sending an ID from web contexts. ([Live demo](https://gistcdn.githack.com/TimVlummens/a57bf1eba6d102aaa378ad0c23a5f2a3/raw/c827400a54bc82b73302c6bebaf65dabbe34bdaf/localhost_channel_methods_page.html))
-- The `*.py` server scripts recreate the app listening behaviour. Find below the Server → method mapping:
-  - **HTTP** → `http_https_websocket.py` (`/send`, port 5000). Sends requests to localhost over HTTP. Used by Yandex since February 2017 until June 2025 and by Meta since September 2024 until October 2024.
-  - **HTTPS** → `http_https_websocket.py` (`/send`, port 5001 over HTTPS). Sends requests over HTTPS to a domain resolving to 127.0.0.1. Used by Yandex since May 2018 until June 2025.
-  - **WebSocket** → `http_https_websocket.py` (`/ws`, port 5000). Sends data via a WebSocket connection with a server on localhost. Used by Meta from November 2024 to January 2025.
-  - **WebRTC STUN** → `webrtc.py` (UDP port 10000 for IPv4/IPv6). Sends WebRTC STUN binding requests. Used by Meta from November 2024 to June 2025.
-  - **WebRTC TURN** → `webrtc_turn.py` (UDP port 10001). Sends WebRTC TURN requests without SDP-munging. Implemented by Meta from May 2025 to June 2025.
+- **HTTP**: Sends requests to localhost over HTTP. Used by Yandex since February 2017 until June 2025 and by Meta since September 2024 until October 2024.
+- **HTTPS**: Sends requests over HTTPS to a domain resolving to 127.0.0.1. Used by Yandex since May 2018 until June 2025.
+- **WebSocket**: Sends data via a WebSocket connection with a server on localhost. Used by Meta from November 2024 to January 2025.
+- **WebRTC STUN**: Sends WebRTC STUN binding requests. Used by Meta from November 2024 to June 2025.
+- **WebRTC TURN**: Sends WebRTC TURN requests without SDP-munging. Implemented by Meta from May 2025 to June 2025.
 
 ---
 
 ## 🛠️ How to Run the PoCs
-
-- `localhost_channel_methods.html` displays a random four-digit number at the top of the page; each method sends this number and the method name.
-- Use the hosted page or a local copy together with the matching `*.py` server: `http_https_websocket.py` (HTTP/HTTPS/WebSocket), `webrtc.py` (STUN), `webrtc_turn.py` (TURN).
 
 ### HTTP and WebSocket
 1. Run `python http_https_websocket.py` (default HTTP port: 5000).
