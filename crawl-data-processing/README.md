@@ -7,9 +7,9 @@ The folder also contains the summary CSVs obtained by processing the raw crawl d
 ## ⚙️ Requirements
 
 - python packages:
-  - pandas
-  - tld
-  - tqdm
+  - `pandas`
+  - `tld`
+  - `tqdm`
 
 ---
 
