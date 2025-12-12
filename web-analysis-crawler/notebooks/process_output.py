@@ -7,34 +7,13 @@ import subprocess
 from tld import get_fld
 from urllib.parse import urlparse
 from functools import lru_cache
+import argparse
 
 from concurrent.futures import ProcessPoolExecutor, as_completed, TimeoutError as concurrentTimeoutError
 from tqdm import tqdm
 
-##########################################
-#   Input and output params              #
-##########################################
-
-# location = "frankfurt"
-location = "new_york"
-
-# version = "_android"
-# version = "_desktop"
-# version = "_android_recrawl"
-# version = "_ios"
-version = "_android_post"
-
-
-INPUT_FOLDER = location + version + "_data"
-
-results_folder = "results/"
-
-##########################################
-
-rank_file_path = "202502.csv"
+# rank_file_path = "202502.csv"
 outputSize = 100000
-
-
 
 LOCALHOST_IPS = {"127.0.0.1", "::1", "0.0.0.0"}
 SCRIPT_URL_CUTOFF = 512
@@ -289,7 +268,7 @@ def analyze_file(file_name : str):
     Returns two lists for both request results and WebRTC results.
     """
     # print(f"🔍 Processing: {file_name}")
-    if file_name == INPUT_FOLDER + "metadata.json":
+    if file_name.endswith("metadata.json"):
         return None, None
     # Load the data from the .json file
     f = open(file_name, encoding="utf-8")
@@ -316,7 +295,50 @@ def analyze_file(file_name : str):
 
     return request_results, webRTC_results
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Process JSON crawl files.")
+
+    parser.add_argument(
+        "--input-folder",
+        required=True,
+        help="Folder containing input JSON files"
+    )
+
+    parser.add_argument(
+        "--output-folder",
+        required=True,
+        help="Folder where output CSV files will be written"
+    )
+
+    parser.add_argument(
+        "--rank-file",
+        default="202502.csv",
+        help="CSV file containing ranking information, defaults to 202502.csv in the same folder as this script"
+    )
+
+    parser.add_argument(
+        "--location",
+        default="",
+        help="Location label used in naming output files"
+    )
+
+    parser.add_argument(
+        "--version",
+        default="",
+        help="Version label used in naming output files"
+    )
+
+    return parser.parse_args()
+
 def main():
+    args = parse_args()
+
+    INPUT_FOLDER = args.input_folder.rstrip("/") + "/"
+    OUTPUT_FOLDER = args.output_folder.rstrip("/") + "/"
+    rank_file_path = args.rank_file
+    location = args.location
+    version = args.version
+
     files = glob.glob(INPUT_FOLDER + '*.json', recursive = False)
     crawl_count = 0
 
@@ -331,8 +353,8 @@ def main():
             if count > outputSize:
                 break
 
-    with open(results_folder + "requests_output_" + location + version + ".csv", "w", newline="", encoding="utf-8") as f1, \
-        open(results_folder + "webRTC_output_" + location + version + ".csv", "w", newline="", encoding="utf-8") as f2:
+    with open(OUTPUT_FOLDER + "requests_output_" + location + "-" + version + ".csv", "w", newline="", encoding="utf-8") as f1, \
+        open(OUTPUT_FOLDER + "webRTC_output_" + location + "-" + version + ".csv", "w", newline="", encoding="utf-8") as f2:
         WRITER_REQS = None
         WRITER_RTC = None
         print("Starting processing...")
@@ -363,11 +385,11 @@ def main():
 
                 except concurrentTimeoutError:
                     print(f"⏱️ Timeout on file: {file}")
-                    with open("timedout_" + location + version + ".txt", 'a') as f:
+                    with open(OUTPUT_FOLDER + "timedout_" + location + version + ".txt", 'a') as f:
                         f.write(file + "\n")
                 except Exception as e:
                     print(f"❌ Error processing {file}: {e}")
-                    with open("failed_" + location + version + ".txt", 'a') as f:
+                    with open(OUTPUT_FOLDER + "failed_" + location + version + ".txt", 'a') as f:
                         f.write(file + "\n")
 
 if __name__ == "__main__":
