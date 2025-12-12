@@ -9,6 +9,11 @@ Web pages and servers to reproduce Meta and Yandex localhost channel methods.
 - Use the Chrome browser; Brave and Firefox may block certain methods.
 - Chrome version 141 and lower does not implement LNA and should work without issues.
 - Chrome version 142 implements LNA. Thus, when prompted, allow local network access (Chrome LNA mitigations). Alternatively, disable the `Local Network Access Checks` flag under `chrome://flags`.
+- Python packages:
+  - flask
+  - flask_cors
+  - flask_sock
+  - aiortc
 
 ---
 
