@@ -1,6 +1,6 @@
-# 📊 Crawl Data and Analysis Scripts
-
-Helper scripts to process crawl output, add rankings, and summarize localhost-request findings, as well as the obtained summaries from the original crawl data.
+# 📊 Crawl Data Overview and Analysis Scripts
+Below you can find the list of web crawls performed for the study, helper scripts to process crawl data, and summarize localhost-request findings.
+The folder also contains the summary CSVs obtained by processing the raw crawl data.
 
 ---
 
@@ -47,9 +47,9 @@ Helper scripts to process crawl output, add rankings, and summarize localhost-re
 
 ---
 
-## 🗄️ Crawl Data
+## 🗄️ List of Crawls
 
-The table below lists the crawls performed for the paper.
+The table below lists the crawls performed for the study.
 
 Crawl name | Location* | Configuration | Consent mode | Date | Num. of websites | URL list**
 -- | -- | -- | -- | -- | -- | --
