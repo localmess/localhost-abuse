@@ -1,4 +1,4 @@
-# 🔗 Artifacts for "Bridges to Self: Silent Web-to-App Tracking on Mobile via Localhost" (USENIX Security'26)
+# Artifacts for "Bridges to Self: Silent Web-to-App Tracking on Mobile via Localhost" (USENIX Security'26)
 
 The repository contains code and data for the USENIX Security Submission #1381. Detailed instructions can be found by following the links:
 - [Proof-of-Concept Android apps](https://github.com/localmess/localhost-abuse/tree/main/android-pocs): Contains Proof-of-Concept (PoC) Android apps that demonstrates how apps can receive IDs shared by web script via different protocols and methods (HTTP, WebSocket, WebRTC-STUN, WebRTC-TURN, mDNS).
