@@ -33,7 +33,16 @@ References:
 
 ## 🛠️ Workflow
 
-1. Set the **Input and output params** in [`process_output.py`](https://github.com/localmess/localhost-abuse/blob/main/web-analysis-crawler/notebooks/process_output.py) to your crawl output.
-2. Run `python process_output.py`.
-3. Update **Input and output params** in [`add_ranking.py`](https://github.com/localmess/localhost-abuse/blob/main/web-analysis-crawler/notebooks/add_ranking.py) and [`summarize_results.py`](https://github.com/localmess/localhost-abuse/blob/main/web-analysis-crawler/notebooks/summarize_results.py) to point to the `process_output.py` output.
-4. Run `python add_ranking.py` and `python summarize_results.py`.
+1. Run `python process_output.py` with the following arguments:
+  - `--input-folder`: Folder containing input JSON files. (crawler output)
+  - `--output-folder`: Folder where output CSV files will be written.
+  - `--location"` and `--version"`: Location and version label used in naming output files. (Optional)
+2. Run `python add_ranking.py` with the following arguments:
+  - `--input-file`: CSV file to add ranking to (output from `process_output.py`).
+  - `--rank-file`: CSV file containing ranking information, defaults to 202502.csv in the same folder as this script. (Optional)
+  - `--version"`: Version label used in naming output files, defaults to "ranked". (Optional)
+3. Run `python summarize_results.py` with the following arguments:
+  - `--input-webrtc`: CSV file with WebRTC output from `process_output.py`.
+  - `--input-requests`: CSV file with requests output from `process_output.py`.
+  - `--output-folder`: Folder where output CSV files will be written.
+  - `--location"` and `--version"`: Location and version label used in naming output files. (Optional)
