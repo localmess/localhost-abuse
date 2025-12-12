@@ -1,36 +1,58 @@
 import pandas as pd
 import json
+import argparse
 
-##########################################
-#   Input and output params              #
-##########################################
+def parse_args():
+    parser = argparse.ArgumentParser(description="Process JSON crawl files.")
 
-results_input__folder = "results/"
+    parser.add_argument(
+        "--input-webrtc",
+        required=True,
+        help="CSV file with WebRTC output from process_output.py"
+    )
 
-# location = "frankfurt"
-location = "new_york"
+    parser.add_argument(
+        "--input-requests",
+        required=True,
+        help="CSV file with requests output from process_output.py"
+    )
 
-# version = "_android"
-# version = "_desktop"
-# version = "_android_recrawl"
-# version = "_ios"
-version = "_android_post"
+    parser.add_argument(
+        "--output-folder",
+        required=True,
+        help="Folder where output CSV files will be written"
+    )
 
-output_folder = "results/"
+    parser.add_argument(
+        "--location",
+        default="",
+        help="Location label used in naming output files"
+    )
 
-webrtc_csv_path = results_input__folder + 'webRTC_output_' + location + version + '.csv'
-requests_csv_path = results_input__folder + 'requests_output_' + location + version + '.csv'
-# resolved_csv_path = results_input__folder + 'resolved_requests_output_' + location + version + '.csv'
-output_json_path = output_folder + 'summary_output_' + location + version + '.json'
-markdown_output_path = output_folder + 'summary_report_' + location + version + '.md'
+    parser.add_argument(
+        "--version",
+        default="",
+        help="Version label used in naming output files"
+    )
 
-##########################################
+    return parser.parse_args()
+
+args = parse_args()
+
+input_webrtc = args.input_webrtc
+input_requests = args.input_requests
+OUTPUT_FOLDER = args.output_folder.rstrip("/") + "/"
+location = args.location
+version = args.version
+
+output_json_path = OUTPUT_FOLDER + 'summary_output_' + location + version + '.json'
+markdown_output_path = OUTPUT_FOLDER + 'summary_report_' + location + version + '.md'
 
 min_urls_threshold = 5
 
 # Load CSVs
-webrtc_df = pd.read_csv(webrtc_csv_path)
-requests_df = pd.read_csv(requests_csv_path)
+webrtc_df = pd.read_csv(input_webrtc)
+requests_df = pd.read_csv(input_requests)
 # resolved_df = pd.read_csv(resolved_csv_path)
 
 # Filter requests by protocol

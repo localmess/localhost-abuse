@@ -353,8 +353,8 @@ def main():
             if count > outputSize:
                 break
 
-    with open(OUTPUT_FOLDER + "requests_output_" + location + "-" + version + ".csv", "w", newline="", encoding="utf-8") as f1, \
-        open(OUTPUT_FOLDER + "webRTC_output_" + location + "-" + version + ".csv", "w", newline="", encoding="utf-8") as f2:
+    with open(OUTPUT_FOLDER + "requests_output_" + location + "_" + version + ".csv", "w", newline="", encoding="utf-8") as f1, \
+        open(OUTPUT_FOLDER + "webrtc_output_" + location + "_" + version + ".csv", "w", newline="", encoding="utf-8") as f2:
         WRITER_REQS = None
         WRITER_RTC = None
         print("Starting processing...")
