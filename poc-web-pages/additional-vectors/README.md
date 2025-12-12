@@ -6,7 +6,7 @@ Two extra localhost abuse vectors that demonstrate Chrome LNA bypass techniques 
 
 ## ⚙️ Requirements
 
-- Use the Chrome browser; Brave and Firefox may block certain methods.
+- Use the Chrome browser (version 142); Brave and Firefox may block certain methods.
 - Enable `Local Network Access Checks` and `Local Network Access Checks for WebRTC` under `chrome://flags` to test against Chrome LNA.
 
 ---
