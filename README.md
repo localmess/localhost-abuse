@@ -5,7 +5,7 @@ The repository contains code and data for the USENIX Security Submission #1381. 
 - [Proof-of-Concept web pages](https://github.com/localmess/localhost-abuse/tree/main/poc-web-pages): Contains PoC web pages that demonstrate how scripts can share IDs with apps running on the same device via different methods.
 - [Frida scripts](https://github.com/localmess/localhost-abuse/tree/main/frida-scripts): Contains Frida scripts used for our dynamic app analyses.
 - [Web crawler](https://github.com/localmess/localhost-abuse/tree/main/web-analysis-crawler): Contains the web crawler code used to search for localhost communications on real-world websites. Based on DuckDuckGo's [tracker-radar-collector](https://github.com/duckduckgo/tracker-radar-collector).
-- [Crawl Data Processing](https://github.com/localmess/localhost-abuse/tree/main/crawl-data-processing): Contains a .tar.gz file with the summary .csv files obtained by processing the crawl data as well as the processing scripts.
+- [Crawl Data Processing](https://github.com/localmess/localhost-abuse/tree/main/crawl-data-processing): Contains a list of crawls, scripts to process crawl data, and summary .csv files obtained by processing the crawl data.
 
 
 <img width="3958" height="1412" alt="Figure showing how web scripts can share IDs with mobile apps via different methods. Taken from the localmess.github.io webpage." src="https://github.com/user-attachments/assets/51d161b4-d4e3-4715-a210-417b2fbf05f9" />
